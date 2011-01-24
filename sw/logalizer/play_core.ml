@@ -118,7 +118,8 @@ let load_log = fun xml_file ->
 
 let timer = ref None
 let was_running = ref false
-let bus = ref "127.255.255.255:2010"
+
+let bus = Defivybus.default_ivy_bus 
 let port = ref "/dev/ttyUSB0"
 let baudrate = ref "9600"
 let file_to_load = ref ""

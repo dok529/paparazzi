@@ -78,7 +78,8 @@ let one_ac = fun (notebook:GPack.notebook) ac_name ->
 
 
 let _ =
-  let ivy_bus = ref "127.255.255.255:2010" in
+  
+  let ivy_bus = Defivybus.default_ivy_bus in
   let acs = ref [] in
   Arg.parse
     [ "-b", Arg.String (fun x -> ivy_bus := x), "Bus\tDefault is 127.255.255.255:2010";
