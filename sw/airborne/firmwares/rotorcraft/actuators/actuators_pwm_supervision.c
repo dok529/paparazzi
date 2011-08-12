@@ -29,6 +29,7 @@
 /* let's start butchery now and use the actuators_pwm arch functions */
 #include "firmwares/rotorcraft/actuators/actuators_pwm.h"
 
+/** Defines SetActuatorsFromCommands() macro */
 #include "generated/airframe.h"
 
 #define actuators actuators_pwm_values
