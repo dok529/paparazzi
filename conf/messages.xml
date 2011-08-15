@@ -19,15 +19,7 @@
      <field name="cpu_time" type="uint16" unit="s"></field>
    </message>
 
-<!-- add the following msg for debugging Haiyang 20080521-->
-   <message name="DebugChao" id="5">
-     <field name="int16_1" type="int16" unit="deg"></field>
-     <field name="int16_2" type="int16" unit="deg"></field>
-     <field name="int16_3" type="int16" unit="deg"></field>
-     <field name="int32_1" type="int32" unit="deg"></field>
-     <field name="int32_2" type="int32" unit="deg"></field>
-     <field name="int32_3" type="int32" unit="deg"></field>
-   </message>
+   <!-- 5 is free -->
 
    <message name="ATTITUDE" id="6">
      <field name="phi"   type="float" unit="rad" alt_unit="deg"/>
@@ -48,10 +40,10 @@
      <field name="utm_east"   type="int32"  unit="cm" alt_unit="m"/>
      <field name="utm_north"  type="int32"  unit="cm" alt_unit="m"/>
      <field name="course"     type="int16"  unit="decideg" alt_unit="deg"/>
-     <field name="alt"        type="int32"  unit="cm" alt_unit="m"/>
+     <field name="alt"        type="int32"  unit="mm" alt_unit="m"/>
      <field name="speed"      type="uint16" unit="cm/s" alt_unit="m/s"/>
      <field name="climb"      type="int16"  unit="cm/s" alt_unit="m/s"/>
-     <field name="week"       type="uint16" unit="weeks"></field>
+     <field name="week"       type="uint16" unit="weeks"/>
      <field name="itow"       type="uint32" unit="ms"/>
      <field name="utm_zone"   type="uint8"/>
      <field name="gps_nb_err" type="uint8"/>
@@ -442,7 +434,7 @@
   <message name="GPS_LLA" id="59">
     <field name="lat"        type="int32"  unit="cm" alt_unit="m"/>
     <field name="lon"        type="int32"  unit="cm" alt_unit="m"/>
-    <field name="alt"        type="int32"  unit="cm" alt_unit="m"/>
+    <field name="alt"        type="int32"  unit="mm" alt_unit="m"/>
     <field name="course"     type="int16"  unit="decideg" alt_unit="deg"/>
     <field name="speed"      type="uint16" unit="cm/s" alt_unit="m/s"/>
     <field name="climb"      type="int16"  unit="cm/s" alt_unit="m/s"/>
@@ -528,11 +520,19 @@
     <field name="cte_int" type="float"/>
   </message>
 
-  <message name="ESTIMATOR_COMP_FILTER" id="81">
-    <field name="gyro_hp_last_out" type="float"/>
-    <field name="gyro_int" type="float"/>
-    <field name="gps_lp_last_out" type="float"/>
-    <field name="ir_lp_last_out" type="float"/>
+  <message name="GENERIC_COM" id="81">
+    <field name="lat" type="int32" unit="1e7deg"/>
+    <field name="lon" type="int32" unit="1e7deg"/>
+    <field name="alt" type="int16" unit="m"/>
+    <field name="gspeed" type="uint16" unit="cm/s" alt_unit="m/s"/>
+    <field name="course" type="int16" unit="decideg" alt_unit="deg"/>
+    <field name="airspeed" type="uint16" unit="cm/s" alt_unit="m/s"/>
+    <field name="vsupply" type="uint8" unit="decivolt"/>
+    <field name="energy" type="uint8" unit="deciAh"/>
+    <field name="throttle" type="uint8" unit="%"/>
+    <field name="ap_mode" type="uint8"/>
+    <field name="nav_block" type="uint8"/>
+    <field name="flight_time" type="uint16" unit="s"/>
   </message>
 
   <message name="FORMATION_SLOT_TM" id="82">
@@ -550,6 +550,8 @@
   </message>
 
   <message name="BMP_STATUS" id="84">
+    <field name="UP"    type="int32"/>
+    <field name="UT"    type="int32"/>
     <field name="press" type="int32" unit="Pa"/>
     <field name="temp"  type="int32" unit="10x_deg_celsius"/>
   </message>
@@ -652,7 +654,7 @@
     <field name="density"   type="float" unit="mg/m3" format="%.2f"/>
   </message>
 
-  <message name="SHT_SERIAL" id="99">
+  <message name="SHT_I2C_SERIAL" id="99">
     <field name="serial0" type="uint32"/>
     <field name="serial1" type="uint32"/>
   </message>
@@ -753,18 +755,75 @@
     <field name="one" type="float"/>
   </message>
 
- <!--113 is free -->
+  <message name="MLX_SERIAL" id="113">
+    <field name="serial0" type="uint32"/>
+    <field name="serial1" type="uint32"/>
+  </message>
 
   <message name="PAYLOAD" id="114">
     <field name="values" type="uint8[]" unit="none"/>
   </message>
 
+  <message name="HTM_STATUS" id="115">
+    <field name="ihumid" type="uint16"/>
+    <field name="itemp"  type="uint16"/>
+    <field name="humid"  type="float" unit="rel_hum" format="%.2f"/>
+    <field name="temp"   type="float" unit="deg_celsius" format="%.2f"/>
+  </message>
 
- <!--115 is free -->
- <!--116 is free -->
- <!--117 is free -->
- <!--118 is free -->
- <!--119 is free -->
+  <message name="BARO_MS5611" id="116">
+    <field name="d1"       type="uint32"/>
+    <field name="d2"       type="uint32"/>
+    <field name="pressure" type="float" unit="hPa" format="%.2f"/>
+    <field name="temp"     type="float" unit="deg_celsius" format="%.2f"/>
+  </message>
+
+  <message name="MS5611_COEFF" id="117">
+    <field name="c0" type="uint16"/>
+    <field name="c1" type="uint16"/>
+    <field name="c2" type="uint16"/>
+    <field name="c3" type="uint16"/>
+    <field name="c4" type="uint16"/>
+    <field name="c5" type="uint16"/>
+    <field name="c6" type="uint16"/>
+    <field name="c7" type="uint16"/>
+  </message>
+
+  <message name="ATMOSPHERE_CHARGE" id="118">
+    <field name="t0" type="uint16"/>
+    <field name="t1" type="uint16"/>
+    <field name="t2" type="uint16"/>
+    <field name="t3" type="uint16"/>
+    <field name="t4" type="uint16"/>
+    <field name="t5" type="uint16"/>
+    <field name="t6" type="uint16"/>
+    <field name="t7" type="uint16"/>
+    <field name="t8" type="uint16"/>
+    <field name="t9" type="uint16"/>
+  </message>
+
+  <message name="SOLAR_RADIATION" id="119">
+    <field name="up_t0" type="uint16"/>
+    <field name="dn_t0" type="uint16"/>
+    <field name="up_t1" type="uint16"/>
+    <field name="dn_t1" type="uint16"/>
+    <field name="up_t2" type="uint16"/>
+    <field name="dn_t2" type="uint16"/>
+    <field name="up_t3" type="uint16"/>
+    <field name="dn_t3" type="uint16"/>
+    <field name="up_t4" type="uint16"/>
+    <field name="dn_t4" type="uint16"/>
+    <field name="up_t5" type="uint16"/>
+    <field name="dn_t5" type="uint16"/>
+    <field name="up_t6" type="uint16"/>
+    <field name="dn_t6" type="uint16"/>
+    <field name="up_t7" type="uint16"/>
+    <field name="dn_t7" type="uint16"/>
+    <field name="up_t8" type="uint16"/>
+    <field name="dn_t8" type="uint16"/>
+    <field name="up_t9" type="uint16"/>
+    <field name="dn_t9" type="uint16"/>
+  </message>
 
   <message name="TCAS_TA" ID="120">
     <field name="ac_id" type="uint8"/>
@@ -802,8 +861,31 @@
     <field name="speed_sp" type="float"/>
   </message>
 
-  <!--126 is free -->
-  <!--127 is free -->
+  <message name="TEMP_TCOUPLE" id="126">
+    <field name="fval0" type="float"/>
+    <field name="fval1" type="float"/>
+    <field name="fval2" type="float"/>
+    <field name="fval3" type="float"/>
+    <field name="fref0" type="float"/>
+    <field name="fref1" type="float"/>
+    <field name="fref2" type="float"/>
+    <field name="fref3" type="float"/>
+    <field name="val0"  type="uint16"/>
+    <field name="val1"  type="uint16"/>
+    <field name="val2"  type="uint16"/>
+    <field name="val3"  type="uint16"/>
+    <field name="ref0"  type="uint16"/>
+    <field name="ref1"  type="uint16"/>
+    <field name="ref2"  type="uint16"/>
+    <field name="ref3"  type="uint16"/>
+  </message>
+
+  <message name="SHT_I2C_STATUS" id="127">
+    <field name="ihumid" type="uint16"/>
+    <field name="itemp"  type="uint16"/>
+    <field name="humid"  type="float" unit="rel_hum" format="%.2f"/>
+    <field name="temp"   type="float" unit="deg_celsius" format="%.2f"/>
+  </message>
 
   <message name="CAMERA_SNAPSHOT" id="128">
     <field name="snapshot_image_number" type="uint16"/>
@@ -1045,7 +1127,7 @@
   </message>
 
 
-  <message name="BOOZ2_FP" id="147">
+  <message name="ROTORCRAFT_FP" id="147">
     <field name="east"     type="int32" alt_unit="m" alt_unit_coef="0.0039063"/>
     <field name="north"    type="int32" alt_unit="m" alt_unit_coef="0.0039063"/>
     <field name="up"       type="int32" alt_unit="m" alt_unit_coef="0.0039063"/>
@@ -1101,32 +1183,43 @@
     <field name="ins_zdd"   type="int32" alt_unit="m/s2" alt_unit_coef="0.0009766"/>
   </message>
 
- <!--152 is free -->
- <!--153 is free -->
+  <message name="PCAP01_STATUS" id="152">
+    <field name="ihumid" type="uint32"/>
+    <field name="itemp"  type="uint32"/>
+    <field name="humid"  type="float" unit="rel_hum" format="%.2f"/>
+    <field name="temp"   type="float" unit="deg_celsius" format="%.2f"/>
+  </message>
+
+  <message name="GEIGER_COUNTER" id="153">
+    <field name="tube1"   type="uint32" unit="events"/>
+    <field name="tube2"   type="uint32" unit="events"/>
+    <field name="vsupply" type="uint16" unit="volts"/>
+  </message>
 
   <message name="INS_REF" id="154">
     <field name="ecef_x0" type="int32" alt_unit="m"    alt_unit_coef="0.01"/>
     <field name="ecef_y0" type="int32" alt_unit="m"    alt_unit_coef="0.01"/>
     <field name="ecef_z0" type="int32" alt_unit="m"    alt_unit_coef="0.01"/>
-    <field name="lat0"    type="int32" alt_unit="deg"  alt_unit_coef="0.0000001"/>
-    <field name="lon0"    type="int32" alt_unit="deg"  alt_unit_coef="0.0000001"/>
-    <field name="alt0"    type="int32" alt_unit="m"    alt_unit_coef="0.01"/>
-    <field name="hmsl0"   type="int32" alt_unit="m"    alt_unit_coef="0.01"/>
+    <field name="lat0"    type="int32" alt_unit="deg"  alt_unit_coef="0.0000057296"/>
+    <field name="lon0"    type="int32" alt_unit="deg"  alt_unit_coef="0.0000057296"/>
+    <field name="alt0"    type="int32" alt_unit="m"    alt_unit_coef="0.001"/>
+    <field name="hmsl0"   type="int32" alt_unit="m"    alt_unit_coef="0.001"/>
     <field name="baro_qfe"    type="int32"/>
   </message>
 
-  <message name="BOOZ2_GPS" id="155">
-    <field name="ecef_x"  type="int32" alt_unit="m"   alt_unit_coef="0.01"/>
-    <field name="ecef_y"  type="int32" alt_unit="m"   alt_unit_coef="0.01"/>
-    <field name="ecef_z"  type="int32" alt_unit="m"   alt_unit_coef="0.01"/>
-    <field name="lat"     type="int32" alt_unit="deg" alt_unit_coef="0.0000001"/>
-    <field name="lon"     type="int32" alt_unit="deg" alt_unit_coef="0.0000001"/>
-    <field name="alt"     type="int32" alt_unit="m"   alt_unit_coef="0.01"/>
-    <field name="ecef_xd" type="int32" alt_unit="m/s" alt_unit_coef="0.01"/>
-    <field name="ecef_yd" type="int32" alt_unit="m/s" alt_unit_coef="0.01"/>
-    <field name="ecef_zd" type="int32" alt_unit="m/s" alt_unit_coef="0.01"/>
-    <field name="pacc"    type="int32" alt_unit="m"   alt_unit_coef="0.01"/>
-    <field name="sacc"    type="int32" alt_unit="m/s" alt_unit_coef="0.01"/>
+  <message name="GPS_INT" id="155">
+    <field name="ecef_x"  type="int32" unit="cm"   alt_unit="m"/>
+    <field name="ecef_y"  type="int32" unit="cm"   alt_unit="m"/>
+    <field name="ecef_z"  type="int32" unit="cm"   alt_unit="m"/>
+    <field name="lat"     type="int32" alt_unit="deg" alt_unit_coef="0.0000057296"/>
+    <field name="lon"     type="int32" alt_unit="deg" alt_unit_coef="0.0000057296"/>
+    <field name="alt"     type="int32" unit="mm"   alt_unit="m"/>
+    <field name="hmsl"    type="int32" unit="mm"   alt_unit="m"/>
+    <field name="ecef_xd" type="int32" unit="cm/s" alt_unit="m/s"/>
+    <field name="ecef_yd" type="int32" unit="cm/s" alt_unit="m/s"/>
+    <field name="ecef_zd" type="int32" unit="cm/s" alt_unit="m/s"/>
+    <field name="pacc"    type="int32" unit="cm"   alt_unit="m"/>
+    <field name="sacc"    type="int32" unit="cm/s" alt_unit="m/s"/>
     <field name="tow"     type="uint32"/>
     <field name="pdop"    type="uint16"/>
     <field name="numsv"   type="uint8"/>
@@ -1252,15 +1345,15 @@
     <field name="pan" type="int16" unit="2^12rad" alt_unit="degres" alt_unit_coef="0.0139882"/>
   </message>
 
-  <message name="BOOZ2_AHRS_REF_QUAT" id="169">
-    <field name="ref_qi"  type="float"/>
-    <field name="ref_qx"  type="float"/>
-    <field name="ref_qy"  type="float"/>
-    <field name="ref_qz"  type="float"/>
-    <field name="body_qi" type="float"/>
-    <field name="body_qx" type="float"/>
-    <field name="body_qy" type="float"/>
-    <field name="body_qz" type="float"/>
+  <message name="AHRS_REF_QUAT" id="169">
+    <field name="ref_qi"  type="int32"/>
+    <field name="ref_qx"  type="int32"/>
+    <field name="ref_qy"  type="int32"/>
+    <field name="ref_qz"  type="int32"/>
+    <field name="body_qi" type="int32"/>
+    <field name="body_qx" type="int32"/>
+    <field name="body_qy" type="int32"/>
+    <field name="body_qz" type="int32"/>
   </message>
 
   <message name="EKF7_XHAT" id="170">
@@ -1574,7 +1667,14 @@
     <field name="mz" type="int32" unit="adc"/>
   </message>
 
-  <!--206 is free -->
+  <message name="IMU_MAG_SETTINGS" id="206">
+    <field name="inclination" type="float" />
+    <field name="declination" type="float" />
+    <field name="hardiron_x" type="float" />
+    <field name="hardiron_y" type="float" />
+    <field name="hardiron_z" type="float" />
+  </message>
+
   <!--207 is free -->
   <!--208 is free -->
 
@@ -1652,7 +1752,11 @@
     <field name="cpu_time"     type="uint16" unit="s"></field>
   </message>
 
- <!--232 is free -->
+   <message name="STATE_FILTER_STATUS" id="232">
+     <field name="state_filter_mode" type="uint8" values="UNKNOWN|INIT|ALIGN|OK|GPS_LOST|IMU_LOST|COV_ERR|IR_CONTRAST|ERROR"/>
+     <field name="value" type="uint16" />
+   </message>
+
  <!--233 is free -->
 
   <message name="OPTICFLOW" id="234">
@@ -1862,9 +1966,9 @@
  <message name="MOVE_WP" id="2" link="forwarded">
   <field name="wp_id" type="uint8"/>
   <field name="ac_id" type="uint8"/>
-  <field name="lat" type="int32" unit="e-7deg"></field>
-  <field name="lon" type="int32" unit="e-7deg"></field>
-  <field name="alt" type="int32" unit="cm"></field>
+  <field name="lat" type="int32" unit="e-7deg"/>
+  <field name="lon" type="int32" unit="e-7deg"/>
+  <field name="alt" type="int32" unit="cm"/>
  </message>
 
  <message name="WIND_INFO" id="3" link="forwarded">
@@ -2096,6 +2200,7 @@
     <field name="gps_mode" type="string" values="NOFIX|DRO|2D|3D|GPSDRO"/>
     <field name="kill_mode" type="string" values="OFF|ON"/>
     <field name="flight_time" type="uint32" />
+    <field name="state_filter_mode" type="string" values="UNKNOWN|INIT|ALIGN|OK|GPS_LOST|IMU_LOST|COV_ERR|IR_CONTRAST|ERROR"/>
   </message>
 
   <message name="NAV_STATUS" id="13">

@@ -212,8 +212,8 @@
       <configure name="ACCEL_Z" value="ADC_7"/>
     </subsystem>
 
-    <subsystem name="attitude"  type="dcm"/>
-    <subsystem name="gps"       type="ublox_lea5h"/>
+    <subsystem name="ahrs"  type="dcm"/>
+    <subsystem name="gps"       type="ublox"/>
     <subsystem name="navigation"/>
   </firmware>
 

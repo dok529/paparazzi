@@ -1,16 +1,3 @@
 # UBlox LEA 4P
 
-
-ap.CFLAGS += -DUSE_GPS -DUBX
-ap.CFLAGS += -DGPS_LINK=$(GPS_PORT)
-ap.CFLAGS += -DUSE_$(GPS_PORT)
-ap.CFLAGS += -D$(GPS_PORT)_BAUD=$(GPS_BAUD)
-
-ifneq ($(GPS_LED),none)
-  ap.CFLAGS += -DGPS_LED=$(GPS_LED)
-endif
-
-ap.srcs   += $(SRC_FIXEDWING)/gps_ubx.c
-
-$(TARGET).srcs += $(SRC_FIXEDWING)/gps.c $(SRC_FIXEDWING)/latlong.c
-
+$(error The gps_ublox_lea4p subsystem has been renamed, please replace <subsystem name="gps" type="ublox_lea4p"/> with <subsystem name="gps" type="ublox_utm"/> in your airframe file.)

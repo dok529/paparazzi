@@ -29,9 +29,11 @@
 #ifndef IMU_B2_ARCH_H
 #define IMU_B2_ARCH_H
 
+extern int imu_overrun;
 
+#ifdef USE_NPS
 extern void imu_feed_gyro_accel(void);
 extern void imu_feed_mag(void);
-
+#endif
 
 #endif /* IMU_B2_HW_H */

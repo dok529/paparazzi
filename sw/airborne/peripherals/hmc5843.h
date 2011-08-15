@@ -27,7 +27,6 @@
 #include "std.h"
 #include "mcu_periph/i2c.h"
 
-
 struct Hmc5843 {
     struct i2c_transaction i2c_trans;
     uint32_t timeout;
@@ -45,6 +44,7 @@ extern struct Hmc5843 hmc5843;
 
 #ifndef HMC5843_NO_IRQ
 #include "peripherals/hmc5843_arch.h"
+
 extern void hmc5843_arch_init( void );
 extern void hmc5843_arch_reset( void );
 #endif
@@ -73,11 +73,11 @@ extern void hmc5843_idle_task(void);
 
 #include <string.h>
 
-#define MagEvent(_m_handler) {						\
-      hmc5843_idle_task(); \
-    if (hmc5843.data_available) { \
-            _m_handler(); \
-    } \
+#define MagEvent(_m_handler) {                      \
+    hmc5843_idle_task();                            \
+    if (hmc5843.data_available) {                   \
+      _m_handler();                                 \
+    }                                               \
   }
 
 #endif /* HMC5843_H */
