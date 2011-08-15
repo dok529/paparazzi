@@ -1,0 +1,9 @@
+<!DOCTYPE settings SYSTEM "settings.dtd">
+
+<settings>
+    <dl_settings NAME="ahrs">
+          <dl_settings name="ahrs">
+	      <dl_setting MAX="1" MIN="0" STEP="1" values="OFF|RESET" module="subsystems/ahrs/ahrs_aligner" var="ahrs_aligner.status" handler="realign"/>
+      </dl_settings>
+  </dl_settings>
+</settings>

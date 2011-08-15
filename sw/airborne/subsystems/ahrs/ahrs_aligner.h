@@ -26,6 +26,7 @@
 
 #include "std.h"
 #include "math/pprz_algebra_int.h"
+#include "subsystems/ahrs.h"
 
 #define AHRS_ALIGNER_UNINIT  0
 #define AHRS_ALIGNER_RUNNING 1
@@ -44,5 +45,12 @@ extern struct AhrsAligner ahrs_aligner;
 
 extern void ahrs_aligner_init(void);
 extern void ahrs_aligner_run(void);
+
+#define ahrs_aligner_realign(_val) { \
+  if (_val == 1) {		\
+    ahrs_aligner_init(); \
+    ahrs_init(); \
+  } \
+}
 
 #endif /* AHRS_ALIGNER_H */

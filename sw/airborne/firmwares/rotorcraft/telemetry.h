@@ -327,6 +327,15 @@ extern uint8_t telemetry_mode_Main_DefaultChannel;
 			    &stabilization_cmd[COMMAND_THRUST]);	\
   }
 
+#include "arch/stm32/servos_direct_hw.h"
+#define PERIODIC_SEND_PWM_COMMANDS(_chan) {				\
+    DOWNLINK_SEND_PWM_COMMANDS(_chan,					\
+			    &actuators_pwm_values[0],	\
+			    &actuators_pwm_values[1],	\
+			    &actuators_pwm_values[2],	\
+			    &actuators_pwm_values[3]);	\
+  }
+
 
 #ifdef USE_AHRS_CMPL
 #include "subsystems/ahrs/ahrs_int_cmpl_euler.h"
