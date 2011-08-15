@@ -44,7 +44,7 @@ void actuators_init(void)
 }
 
 #define PWM_GAIN_SCALE 2
-#define PWM_OFF 1000
+#define PWM_OFF 0
 
 void actuators_set(bool_t motors_on) {
   int32_t pwm_commands[COMMANDS_NB];
@@ -54,7 +54,8 @@ void actuators_set(bool_t motors_on) {
   pwm_commands[COMMAND_ROLL] = commands[COMMAND_ROLL] * PWM_GAIN_SCALE;
   pwm_commands[COMMAND_PITCH] = commands[COMMAND_PITCH] * PWM_GAIN_SCALE;
   pwm_commands[COMMAND_YAW] = commands[COMMAND_YAW] * PWM_GAIN_SCALE;
-  pwm_commands[COMMAND_THRUST] = (commands[COMMAND_THRUST] * ((SUPERVISION_MAX_MOTOR - SUPERVISION_MIN_MOTOR) / 200)) + SUPERVISION_MIN_MOTOR;
+  //pwm_commands[COMMAND_THRUST] = (commands[COMMAND_THRUST] * ((SUPERVISION_MAX_MOTOR - SUPERVISION_MIN_MOTOR) / 200)) + SUPERVISION_MIN_MOTOR;
+  pwm_commands[COMMAND_THRUST] = (commands[COMMAND_THRUST] + 200) * ((SUPERVISION_MAX_MOTOR - SUPERVISION_MIN_MOTOR) / 400) + SUPERVISION_MIN_MOTOR;
 
   pwm_commands_pprz[COMMAND_ROLL] = commands[COMMAND_ROLL] * (MAX_PPRZ / 100);
   pwm_commands_pprz[COMMAND_PITCH] = commands[COMMAND_PITCH] * (MAX_PPRZ / 100);

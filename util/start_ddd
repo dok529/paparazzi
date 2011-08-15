@@ -1,0 +1,4 @@
+#!/bin/bash
+ddd --debugger /opt/arm/bin/arm-none-eabi-gdb
+exit
+

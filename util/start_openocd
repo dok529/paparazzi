@@ -1,0 +1,3 @@
+#!/bin/bash
+openocd -f $PAPARAZZI_HOME/conf/openocd/interface_lisa-l.cfg -f $PAPARAZZI_HOME/conf/openocd/board_lisa-l.cfg
+exit
