@@ -173,7 +173,9 @@
   <firmware name="rotorcraft">
     <target name="ap" board="lisa_m_1.0"/>
  
-      <subsystem name="radio_control" type="ppm"/>
+      <subsystem name="radio_control" type="ppm">
+	<configure name="RADIO_CONTROL_PPM_PIN" value="SERVO6"/>
+      </subsystem>
       <subsystem name="telemetry"     type="transparent"/>
       <subsystem name="actuators"     type="pwm_supervision"/>
       <subsystem name="imu"           type="aspirin_v1.5"/>
